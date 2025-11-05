@@ -1,0 +1,43 @@
+# StoryGen CI/CD Setup Summary for Project: iconic-mariner-387807
+# Generated on Wed Nov  5 06:30:07 AM UTC 2025
+
+## Resources Created
+- Workload Identity Pool: github-pool
+- Workload Identity Provider: github-provider-fixed
+- Service Account: github-actions@iconic-mariner-387807.iam.gserviceaccount.com  
+- Storage Bucket: iconic-mariner-387807-bucket
+- Secret Manager: GOOGLE_API_KEY
+
+## GitHub Repository Secrets
+Add at: https://github.com/sekharpraja/storygen-learning/settings/secrets/actions
+
+WORKLOAD_IDENTITY_PROVIDER:
+projects/345646793401/locations/global/workloadIdentityPools/github-pool/providers/github-provider-fixed
+
+GCP_SERVICE_ACCOUNT_EMAIL:
+github-actions@iconic-mariner-387807.iam.gserviceaccount.com
+
+GOOGLE_API_KEY:
+(Get from https://aistudio.google.com/)
+
+## GitHub Repository Variables  
+Add at: https://github.com/sekharpraja/storygen-learning/settings/variables/actions
+
+GCP_PROJECT_ID: iconic-mariner-387807
+GCP_REGION: us-central1
+ARTIFACT_REPO: storygen-repo
+BACKEND_SERVICE_NAME: genai-backend
+FRONTEND_SERVICE_NAME: genai-frontend
+BUCKET_NAME: iconic-mariner-387807-bucket
+SECRET_NAME: GOOGLE_API_KEY
+
+## Next Steps
+1. Add above secrets and variables to GitHub
+2. Get Gemini API key: https://aistudio.google.com/
+3. Add API key to Secret Manager:
+   echo 'YOUR_API_KEY' | gcloud secrets versions add GOOGLE_API_KEY --data-file=- --project=iconic-mariner-387807
+4. Add same API key as GOOGLE_API_KEY in GitHub
+5. Push to main branch - CI/CD will deploy automatically
+
+## Validation
+Run: ./validate-workload-identity.sh
